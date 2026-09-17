@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -58,6 +59,47 @@ class AdjustedAverageTest {
     @Test
     void supportsAListLargerThanThreeValues() {
         assertEquals(4.0, AdjustedAverage.adjustedAverage(List.of(1, 2, 3, 4, 5, 6, 100)), 0.000001);
+    }
+
+    @Test
+    void handlesAllMaximumValues() {
+        assertEquals(
+                Integer.MAX_VALUE,
+                AdjustedAverage.adjustedAverage(List.of(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE)),
+                0.000001);
+    }
+
+    @Test
+    void handlesAllMinimumValues() {
+        assertEquals(
+                Integer.MIN_VALUE,
+                AdjustedAverage.adjustedAverage(List.of(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE)),
+                0.000001);
+    }
+
+    @Test
+    void handlesOppositeExtremes() {
+        assertEquals(
+                -0.5,
+                AdjustedAverage.adjustedAverage(
+                        List.of(Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE)),
+                0.000001);
+    }
+
+    @Test
+    void handlesSumLargerThanIntegerRange() {
+        assertEquals(
+                Integer.MAX_VALUE,
+                AdjustedAverage.adjustedAverage(Collections.nCopies(1000, Integer.MAX_VALUE)),
+                0.000001);
+    }
+
+    @Test
+    void handlesExtremesSurroundingModerateValues() {
+        assertEquals(
+                6.0,
+                AdjustedAverage.adjustedAverage(List.of(Integer.MIN_VALUE, 5, 7, Integer.MAX_VALUE)),
+                0.000001);
     }
 
     @Test
