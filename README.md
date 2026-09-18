@@ -7,14 +7,18 @@ This project contains Java implementations and JUnit tests for two homework exer
 
 ## Project Contents
 
-- `pom.xml`: Maven project configuration. It targets Java 25 and includes JUnit 5 for testing.
-- `src/main/java/AdjustedAverage.java`: implementation of the adjusted-average calculation.
-- `src/main/java/SyllableCounter.java`: syllable-counting implementation.
-- `src/test/java/AdjustedAverageTest.java`: 18 tests covering normal adjusted averages, duplicate extremes, negative values, invalid input, and five integer-overflow boundary cases.
-- `src/test/java/SyllableCounterTest.java`: 61 tests covering the 23 supplied sample words plus the spelling rules the counter relies on, capitalization and punctuation, and invalid input.
+Each problem is a separate Maven project in its own folder, and each builds and tests on its own.
+
+- `Problem2_AdjustedAverage/`: problem 2 (sections 2.1 and 2.2)
+  - `src/main/java/AdjustedAverage.java`: implementation of the adjusted-average calculation.
+  - `src/test/java/AdjustedAverageTest.java`: 18 tests covering normal adjusted averages, duplicate extremes, negative values, invalid input, and five integer-overflow boundary cases.
+- `Problem3_SyllableCounter/`: problem 3 (sections 3.1 and 3.2)
+  - `src/main/java/SyllableCounter.java`: syllable-counting implementation.
+  - `src/test/java/SyllableCounterTest.java`: 61 tests covering the 23 supplied sample words plus the spelling rules the counter relies on, capitalization and punctuation, and invalid input.
+- `pom.xml`: runs both problems from the project root. Each problem folder has its own `pom.xml` targeting Java 25 with JUnit 5.
 - `Screenshots cs5588 hw1/`: screenshots documenting the project and test results.
 
-Generated Maven output is placed in `target/` and is not part of the source files.
+Generated Maven output is placed in each folder's `target/` and is not part of the source files.
 
 ## How the Syllable Counter Works
 
@@ -46,13 +50,20 @@ Words whose accepted count varies by speaker, such as *every* and *everything*, 
 
 ## Run the Tests
 
-From the project root, run:
+Both problems, from the project root:
 
 ```bash
 mvn clean test
 ```
 
-A successful run reports 79 tests with zero failures and zero errors.
+Maven reports each problem separately: 18 tests for Problem 2 and 61 for Problem 3, 79 in total, with zero failures and zero errors.
+
+One problem on its own, from inside its folder:
+
+```bash
+cd Problem2_AdjustedAverage && mvn clean test    # 18 tests
+cd Problem3_SyllableCounter && mvn clean test    # 61 tests
+```
 
 ## Main Methods
 
