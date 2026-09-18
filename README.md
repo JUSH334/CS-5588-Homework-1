@@ -27,7 +27,17 @@ The counter agrees with https://syllablecounter.net/count on all 23 sample words
 
 ### Known Limitations
 
-English spelling does not determine pronunciation, so a rule-based counter cannot be exact. Words it gets wrong include *recipe* (returns 2, not 3), *science* (returns 1, not 2), and *creating* (returns 2, not 3). Words whose accepted count varies by speaker, such as *every* and *everything*, follow the letter-by-letter count.
+English spelling does not determine pronunciation, so a rule-based counter cannot be exact. The cases below are documented rather than patched with word-specific exceptions, since a table of known words is the error this project set out to remove.
+
+**Vowel pairs the counter does not split.** *science* returns 1 instead of 2, *situation* 3 instead of 4, and *creating* 2 instead of 3.
+
+**The `-ia` rule over-applies to names ending in *-ya*.** The rule adds a syllable wherever those letters appear outside the `c`, `s` and `t` exceptions. That is correct for Ca-li-for-ni-a and me-di-a, but wrong where the ending is spoken as a single *-ya*: *Virginia* returns 4 instead of 3, *Georgia* 3 instead of 2, and *Australia* 4 instead of 3. Spelling alone cannot separate the two cases, because the difference is stress rather than letters.
+
+**The `-io` rule has the same problem after `n`.** *million* and *onion* return 3 instead of 2, and *opinion* 4 instead of 3.
+
+**A final *e* is always treated as silent.** *recipe* returns 2 instead of 3.
+
+Words whose accepted count varies by speaker, such as *every* and *everything*, follow the letter-by-letter count.
 
 ## Requirements
 
